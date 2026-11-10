@@ -1,0 +1,8 @@
+{
+  "documentId": "/payload/metadata/source_id",
+  "tenantId": "/payload/metadata/tenant",
+  "sourceVersion": "/payload/metadata/revision",
+  "contentHash": "/payload/metadata/source_hash",
+  "embeddingModel": "/payload/metadata/model",
+  "chunkId": "/payload/metadata/chunk_id"
+}

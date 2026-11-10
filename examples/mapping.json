@@ -1,0 +1,8 @@
+{
+  "documentId": "/metadata/source_id",
+  "tenantId": "/metadata/tenant",
+  "sourceVersion": "/metadata/revision",
+  "contentHash": "/metadata/source_hash",
+  "embeddingModel": "/metadata/model",
+  "chunkId": "/metadata/chunk_id"
+}

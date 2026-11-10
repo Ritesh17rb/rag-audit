@@ -1,0 +1,22 @@
+{
+  "name": "rag-audit", "version": "0.1.0", "type": "module",
+  "description": "Find stale, orphaned, missing, and misconfigured chunks in existing RAG indexes.",
+  "main": "./dist/index.cjs", "module": "./dist/index.js", "types": "./dist/index.d.ts",
+  "exports": { ".": { "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" }, "require": { "types": "./dist/index.d.cts", "default": "./dist/index.cjs" } } },
+  "bin": { "rag-audit": "./dist/cli.js" },
+  "files": ["dist", "examples", "docs", "README.md", "LICENSE", "CHANGELOG.md"],
+  "scripts": {
+    "build": "node scripts/build.mjs", "typecheck": "tsc --noEmit",
+    "test": "npm run build && node --test test/audit.test.mjs test/qdrant.test.mjs test/cli.test.mjs",
+    "check": "npm run typecheck && npm test", "demo": "node dist/cli.js demo",
+    "smoke": "node scripts/smoke.mjs", "prepack": "npm run build"
+  },
+  "engines": { "node": ">=20.3.0" }, "license": "MIT", "author": "Ritesh",
+  "repository": { "type": "git", "url": "git+https://github.com/Ritesh17rb/rag-audit.git" },
+  "homepage": "https://github.com/Ritesh17rb/rag-audit#readme",
+  "bugs": { "url": "https://github.com/Ritesh17rb/rag-audit/issues" },
+  "keywords": ["rag", "audit", "qdrant", "vector-database", "data-quality", "retrieval", "llm", "ci"],
+  "devDependencies": { "@types/node": "^22.0.0", "tsup": "^8.5.1", "typescript": "^5.7.0" },
+  "overrides": { "esbuild": "^0.28.2" },
+  "publishConfig": { "access": "public", "registry": "https://registry.npmjs.org/" }
+}

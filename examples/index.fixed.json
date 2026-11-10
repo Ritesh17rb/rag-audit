@@ -1,0 +1,10 @@
+{
+  "formatVersion": 1,
+  "completeness": "complete",
+  "scope": { "tenantId": "acme" },
+  "records": [
+    { "id": "p1", "documentId": "refund-policy", "tenantId": "acme", "chunkId": "refund:0", "sourceVersion": "3", "contentHash": "demo-refund-revision-3", "embeddingModel": "example-embed-v2" },
+    { "id": "p2", "documentId": "refund-policy", "tenantId": "acme", "chunkId": "refund:1", "sourceVersion": "3", "contentHash": "demo-refund-revision-3", "embeddingModel": "example-embed-v2" },
+    { "id": "p5", "documentId": "onboarding", "tenantId": "acme", "sourceVersion": "1", "embeddingModel": "example-embed-v2" }
+  ]
+}

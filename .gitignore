@@ -1,0 +1,8 @@
+node_modules/
+dist/
+reports/
+*.tgz
+.env
+.env.*
+.npmrc
+coverage/
