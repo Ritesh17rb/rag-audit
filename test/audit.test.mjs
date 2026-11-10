@@ -77,6 +77,7 @@ test('tenant identity cannot be inferred from the document ID', () => {
   const result = audit(manifest([{ id: 'a', tenantId: 'A', sourceVersion: '2' }]), snapshot());
   assert.ok(result.findings.some(f => f.code === 'MISSING_METADATA' && f.path.endsWith('/tenantId')));
   assert.equal(result.summary.matchedRecords, 0);
+  assert.equal(result.coverage.sourceUnverifiableRecords, 1);
 });
 test('mismatched audit scopes fail instead of inventing orphan/missing findings', () => {
   assert.throws(() => audit(manifest(), snapshot([], { scope: { tenantId: 'A' } })), /scopes must match/);
@@ -155,6 +156,8 @@ test('reports escape HTML and terminal controls and retain coverage caveats', ()
 test('source and index evidence locations remain distinct in SARIF', () => {
   const report = audit(manifest(), snapshot([]));
   assert.equal(toSarif(report, 'source.json', 'chunks.json').runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, 'source.json');
+  const partial = audit(manifest([], { completeness: 'partial' }), snapshot([]));
+  assert.equal(toSarif(partial, 'source.json', 'chunks.json').runs[0].results[0].locations[0].physicalLocation.artifactLocation.uri, 'source.json');
 });
 test('audit does not mutate inputs and is reproducible', () => {
   const sources = manifest(), index = snapshot(); const before = JSON.stringify([sources, index]);

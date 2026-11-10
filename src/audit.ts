@@ -45,11 +45,12 @@ export function audit(sourceInput: Manifest, indexInput: Snapshot, options: { ma
     if (record.documentId === undefined) add({ ...base, path: `${base.path}/documentId`, code: 'MISSING_METADATA', severity: 'error', message: 'documentId is missing; the record cannot be linked to a source.', recommendation: 'Store a stable document ID in every chunk and configure its metadata mapping.' });
     if (tenantAware && record.tenantId === undefined) add({ ...base, path: `${base.path}/tenantId`, code: 'MISSING_METADATA', severity: 'error', message: 'tenantId is missing in a tenant-aware audit.', recommendation: 'Store explicit tenant identity on every chunk. Tenant identity is never inferred from a document ID.' });
     if (manifest.scope && string(record.tenantId) && record.tenantId !== manifest.scope.tenantId) {
+      sourceUnverifiableRecords++;
       add({ ...base, code: 'TENANT_SCOPE_MISMATCH', severity: 'error', message: 'The record tenant differs from the declared audit scope.', recommendation: 'Review export filtering, metadata mapping, and tenant routing. This finding does not by itself prove a retrieval authorization bypass.' });
       continue;
     }
     if (string(record.embeddingModel)) models.add(record.embeddingModel);
-    if (!string(record.documentId) || badFields.has('tenantId') || tenantAware && !string(record.tenantId)) continue;
+    if (!string(record.documentId) || badFields.has('tenantId') || tenantAware && !string(record.tenantId)) { sourceUnverifiableRecords++; continue; }
     const key = identity(string(record.tenantId) ? record.tenantId : undefined, record.documentId);
     const source = documents.get(key);
     if (!source) {
